@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">IoT Lights</string>
+    <string name="failed_to_load_data_try_again">Failed to Load Data from the internet! Load Again ??</string>
 </resources>

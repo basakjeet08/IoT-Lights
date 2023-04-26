@@ -1,4 +1,4 @@
-package `in`.iot.lab.iotlights.ui.theme
+package `in`.iot.lab.iotlights.core.theme
 
 import android.app.Activity
 import android.os.Build

@@ -1,4 +1,4 @@
-package `in`.iot.lab.iotlights.ui.theme
+package `in`.iot.lab.iotlights.core.theme
 
 import androidx.compose.ui.graphics.Color
 
