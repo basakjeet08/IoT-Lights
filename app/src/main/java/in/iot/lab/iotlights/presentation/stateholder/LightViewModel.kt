@@ -30,6 +30,10 @@ class LightViewModel : ViewModel() {
     )
         private set
 
+    init{
+        getLightDataOnly()
+    }
+
     // This function asks the repository to post the Light Status to the Database
     private fun postLightData(postData: LightPostData) {
 
