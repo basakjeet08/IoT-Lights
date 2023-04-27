@@ -1,6 +1,5 @@
 package `in`.iot.lab.iotlights.presentation.stateholder
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -26,7 +25,7 @@ class LightViewModel : ViewModel() {
     // This is the Repository variable of the Class
     private val myRepository = LightRepository()
 
-    var lightApiState: LightApiState by mutableStateOf(
+    var lightGetApiState: LightApiState by mutableStateOf(
         LightApiState.Initialized
     )
         private set
@@ -37,7 +36,7 @@ class LightViewModel : ViewModel() {
         // Posting the Data to the Database
         viewModelScope.launch {
 
-            lightApiState = try {
+            lightGetApiState = try {
 
                 // posting to the Server
                 myRepository.postLightData(postData = postData)
@@ -51,7 +50,7 @@ class LightViewModel : ViewModel() {
     fun getLightData() {
 
         // Setting the current state of the Api State as Loading
-        lightApiState = LightApiState.Loading
+        lightGetApiState = LightApiState.Loading
 
         // Fetching the Data from the Database
         viewModelScope.launch {
@@ -74,9 +73,28 @@ class LightViewModel : ViewModel() {
                         )
                     )
                 } else {
-                    lightApiState = LightApiState.Failure("Failed to fetch Data from the Server")
+                    lightGetApiState = LightApiState.Failure("Failed to fetch Data from the Server")
                 }
 
+            } catch (_: java.lang.Exception) {
+                LightApiState.Failure("Network Not Available")
+            }
+        }
+    }
+
+    // This function asks the repository to get the Light Status from the Database
+    fun getLightDataOnly() {
+
+        // Setting the current state of the Api State as Loading
+        lightGetApiState = LightApiState.Loading
+
+        // Fetching the Data from the Database
+        viewModelScope.launch {
+
+            lightGetApiState = try {
+
+                // Fetching the data from the Repository
+                myRepository.getLightData()
             } catch (_: java.lang.Exception) {
                 LightApiState.Failure("Network Not Available")
             }
